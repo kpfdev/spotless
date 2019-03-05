@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <title>Channel Side, Boston</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset='utf-8' />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Ion Slider -->
+    <link href='vendor/ion_slider/css/ion.rangeSlider.min.css' rel='stylesheet'/>
+
+    <!-- Mapbox -->
+    <script src='vendor/mapbox/js/mapbox-gl.js'></script>
+    <link href='vendor/mapbox/css/mapbox-gl.css' rel='stylesheet'/>
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="css/styles.css" type="text/css" />
+
+  </head>
+
+  <body>
+
+    <!-- Page Content -->
+    <div class='container-fluid h-100 px-0'>
+
+      <div class='row h-100 mx-0'>
+
+        <!--Menu Top-->
+        <div id="menu-top" class="row fixed-top m-0 p-0">
+
+          <!--Metrics-->
+          <div class='row border-bottom justify-content-between p-3'>
+            <h4 class='col-10 font-weight-bold mb-0 px-0'>Metrics</h4>
+
+            <table class="table">
+              <!-- <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col" class='text-right'>Area (SF)</th>
+                </tr>
+              </thead> -->
+              <tbody>
+                <tr>
+                  <td width="60%"># of Housing Units</td>
+                  <td class='gfa1 text-right'>1,200</td>
+                </tr>
+                <tr>
+                  <td width="60%"># of New Jobs</td>
+                  <td class='gfa2 text-right'>14,150</td>
+                </tr>
+                <tr>
+                  <td width="60%">Additional Park Space</td>
+                  <td class='gfa3 text-right'>1,101,150 SF</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <!--Metrics-->
+
+          <!--Layers-->
+          <div class='row border-bottom justify-content-between p-3'>
+            <h4 class='col-10 font-weight-bold mb-0 px-0'>Layers</h4>
+
+            <div class='col-12 m-0 p-0'>
+              <button id="new-shadow-button" type="button" class="btn btn-secondary btn-sm mb-1 visible" aria-haspopup="false">Surface Parking (Full Lot)</button>
+            </div>
+
+            <div class='col-12 m-0 p-0'>
+              <button id="one-hour-button" type="button" class="btn btn-primary btn-sm mb-1 visible" aria-haspopup="false">Surface Parking (Partial Lot)</button>
+            </div>
+
+            <div class='col-12 m-0 p-0'>
+              <button id="new-one-hour-button" type="button" class="btn btn-danger btn-sm mb-1 visible" aria-haspopup="false">Garage (standalone)</button>
+            </div>
+
+            <div class='col-12 m-0 p-0'>
+              <button id="reduced-one-hour-button" type="button" class="btn btn-info btn-sm mb-1 visible" aria-haspopup="false">Garage (in building)</button>
+            </div>
+
+          </div>
+          <!--Layers-->
+
+
+          <!--Color-->
+          <div class='row border-bottom justify-content-between p-3'>
+            <h4 class='col-10 font-weight-bold mb-0 px-0'>Color</h4>
+
+            <div class="dropdown">
+              <button id="comfort-dropdown" type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                % of Time in Comfort
+              </button>
+
+              <div id="comfort-dropdown-item" class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                <button class="dropdown-item" onclick='updateDropdown(this);updateColorLinear("comfort", "#irs-comfort", "_radiation", "red2green",[0,1500])' href="#">Type</button>
+                <button class="dropdown-item" onclick='updateDropdown(this);updateColorLinear("comfort", "#irs-comfort", "_perc_comfort", "red2green",[25,50])' href="#">Buildable Area</button>
+                <button class="dropdown-item" onclick='updateDropdown(this);updateColorLinear("comfort", "#irs-comfort", "_perc_improve_comfort", "red2white2green",[-20,20])' href="#">Surface Area</button>
+              </div>
+            </div>
+
+          </div>
+          <!--Color-->
+
+          <!--Context Layers-->
+          <div class='row border-bottom justify-content-between p-3'>
+            <h4 class='col-10 font-weight-bold mb-0 px-0'>Context Layers</h4>
+
+            <button id="layers-toggle" type="button" data-toggle="collapse" data-target="#layersCollapse" class="col-1 btn btn-outline-secondary btn-sm dropdown-toggle w-100" aria-haspopup="false"></button>
+
+            <div id="layersCollapse" class="collapse col-12 px-0">
+              <button id="existing" type="button" class="btn btn-dark btn-sm mb-1 layer-button visible" aria-haspopup="false">Existing Buildings</button>
+              <button id="existing-shadow-button" type="button" class="btn btn-outline-secondary btn-sm mb-1 hidden" aria-haspopup="false">Existing Shadows</button>
+              <button id="future" type="button" class="btn btn-outline-warning btn-sm mb-1 layer-button hidden" aria-haspopup="false">Future Buildings</button>
+              <button id="parcels-button" type="button" class="btn btn-outline-primary btn-sm mb-1 hidden" aria-haspopup="false">Parcels</button>
+              <button id="trees-button" type="button" class="btn btn-outline-success btn-sm mb-1 hidden" aria-haspopup="false">Trees</button>
+            </div>
+          </div>
+          <!--Context Layers-->
+
+        </div>
+        <!--Top Menu-->
+
+        <div id="menu-bottom" class="row fixed-bottom m-0 px-3 py-0">
+
+          <div class="col-12 border-bottom px-0 py-3">
+            <div class="row">
+
+              <div class="col-2 p-0">
+                <h4 class="text-right h-100 mb-0 pt-3">% of Parking Reused</h4>
+              </div>
+
+              <div class='col-10 px-3'>
+                <div id="reuseSlider">
+                  <div id="irs-reuse"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-12 border-bottom px-0 py-3">
+            <div class="row">
+
+              <div class="col-2 p-0">
+                <h4 class='text-right h-100 mb-0 pt-3'>% Park</h4>
+              </div>
+
+              <div class='col-10 px-3'>
+                <div id="parkSlider">
+                  <div id="irs-park"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!--storyline-->
+          <div class="row fixed-top justify-content-end">
+            <div id='column-right' class='col'>
+              <div class='row floating-window mt-3 mr-3 p-3'>
+                <h4 id="story-title" class='col-lg-10 mb-0 px-0'>Chapter 91 Shadows Impacts</h4>
+                <button id="start-button" type="button" class="col-lg-2 btn btn-success btn-sm" aria-haspopup="false">Start</button>
+                <button id="previous-button" type="button" class="col-lg-1 btn btn-outline-secondary btn-sm" aria-haspopup="false"><</button>
+                <button id="next-button" type="button" class="col-lg-1 btn btn-outline-secondary btn-sm" aria-haspopup="false">></button>
+                <p id="story-text" class='col-lg-12 mb-0 px-0 mt-4'>Click start to see the impacts from shadows for each of 4 schemes.</p>
+              </div>
+            </div>
+          </div>
+          <!-- storyline -->
+
+        </div>
+
+        <!--column main-->
+        <div class="col main px-0">
+          <div id='map' class='h-100 px-0'></div>
+        </div>
+        <!--column main-->
+
+      </div>
+      <!--row-->
+    </div>
+    <!-- container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Main JavaScript -->
+    <script src='vendor/ion_slider/js/ion.rangeSlider.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js'></script>
+    <script src='vendor/threejs/GLTFLoader.js'></script>
+    <script src='vendor/threejs/MTLLoader.js'></script>
+    <script src='vendor/threejs/LoaderSupport.js'></script>
+    <script src='vendor/threejs/OBJLoader2.js'></script>
+    <script src='vendor/threejs/OBJLoader.js'></script>
+
+
+    <script type="text/javascript" src="js/main.js"></script>
+
+  </body>
+
+</html>

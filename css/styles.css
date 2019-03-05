@@ -1,0 +1,159 @@
+html,body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Sans-serif;
+  z-index: 0;
+}
+
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+.btn-info {
+  color: white;
+}
+
+.layer-button .visible {
+   color: 'yellow';
+   background-color: 'yellow';
+   border-color: 'yellow';
+}
+
+.layer-button .hidden {
+   color: 'grey';
+   background-color: 'grey';
+   border-color: 'grey';
+}
+
+#next-button {
+  display: none;
+}
+
+#previous-button {
+  display: none;
+}
+
+button {
+  color: white;
+}
+
+#column-left {
+  background-color: #ffffff;
+  overflow-y: auto;
+  -ms-flex: 0 0 400px;
+  flex: 0 0 400px;
+  box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+#column-right {
+  background-color: #ffffff;
+  width: 0 0 440px;
+  max-width: 440px;
+  flex: 0 0 440px;
+  max-height: 0px;
+}
+
+.data-component {
+  border-width: 1px;
+}
+
+.floating-window {
+  background-color: rgba(255,255,255,0.95);
+  box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
+}
+
+.irs-from, .irs-to, .irs-handle>i:first-child {
+
+  background-color: black !important;
+}
+
+.irs-from::before, .irs-to::before, .irs-single::before {
+  border-top-color: black !important;
+}
+
+.irs--flat .irs-handle {
+    height: 26px;
+}
+
+.irs--flat .irs-line {
+    height: 20px;
+}
+
+.irs-grid {
+    height: 15px;
+}
+
+.irs-grid-text {
+    line-height: 0px;
+}
+
+#reuseSlider .irs-bar {
+  height: 20px;
+  background-color: #ed556500 !important;
+}
+
+#parkSlider .irs-bar {
+  height: 20px;
+  background-color: #83c58f !important;
+}
+
+.irs-single {
+  background-color: black !important;
+}
+
+.dropdown-menu {
+  box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
+}
+
+.label {
+  width: 15%;
+  display: inline-block;
+  text-align: center;
+}
+
+.fixed-row-bottom {
+  position: fixed;
+  bottom: 0;
+}
+
+.mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+#menu-bottom {
+  background-color: white;
+  box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+#menu-top {
+  background-color: white;
+  box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.ramp {
+  height: 20px;
+  width: 100%;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 600px;
+    overflow-x: hidden;
+}
+
+table {
+  font-size: .8rem;
+}
+
+.table td {
+  padding: .5rem;
+}
