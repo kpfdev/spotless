@@ -2,32 +2,9 @@ var settings = {
   'color_column':'wed_12',
   'comfort_chosen':'perc_comfort',
   'sunlight_chosen':'kpf_hours',
-  'layers_visible':true,
+  'percent_reused': 100,
+  'layers_visible':['surface_full','surface_partial','garage_full','garage_partial'],
   'storyItem':0,
-  'option':'kpf',
-  'options': ['kpf','100acre','100acrePDA'],
-  'optionsData':{
-    'ch91':{
-      'gfa1':'293,000 SF',
-      'gfa2':'1,507,516 SF',
-      'gfa3':'508,000 SF'
-    },
-    'kpf':{
-      'gfa1':'293,000 SF',
-      'gfa2':'1,101,150 SF',
-      'gfa3':'508,000 SF'
-    },
-    '100acre':{
-      'gfa1':'293,000 SF',
-      'gfa2':'1,031,073 SF',
-      'gfa3':'508,000 SF'
-    },
-    '100acrePDA':{
-      'gfa1':'293,000 SF',
-      'gfa2':'1,031,073 SF',
-      'gfa3':'508,000 SF'
-    }
-  }
 }
 
 var colors = {
@@ -120,10 +97,10 @@ map.on('load', function() {
         'fill-extrusion-color': [
           'match',
           ['get', 'Parking_Ty'],
-          'surface_full', '#fbb03b',
-          'surface_partial', '#e55e5e',
-          'garage_full', '#223b53',
-          'garage_partial', '#3bb2d0',
+          'surface_full', '#ea3f64',
+          'surface_partial', '#f78fa6',
+          'garage_full', '#4eb9fc',
+          'garage_partial', '#bee1f7',
           /* other */ '#ccc'
         ],
         'fill-extrusion-opacity': 1,
@@ -348,34 +325,29 @@ $(function(){
 });
 
 // range slider for comfort
-var comfortSlider = $("#irs-reuse")
-comfortSlider.ionRangeSlider({
+var reuseSlider = $("#irs-reuse")
+reuseSlider.ionRangeSlider({
    grid: true,
    min: 0,
    max: 100,
-   from: 50,
+   from: 100,
    postfix: "%",
    onFinish: function (data) {
-     if (data.to == data.max && data.from == data.min) {
-       map.setFilter('parking', ['all'])
-     } else if (data.to == data.max) {
-       map.setFilter('parking', ['all', ['>=', settings.comfort_chosen, data.from]]);
-     } else if (data.from == data.min) {
-       map.setFilter('parking', ['all', ['<=', settings.comfort_chosen, data.to]]);
-     } else {
-       map.setFilter('parking', ['all',['>=', settings.comfort_chosen, data.from],['<=', settings.parcels_chosen, data.to]]);
-     }
+     settings.percent_reused = data.from
+     map.setFilter('parking', ['>=', 'Leftover_P', 1 - (data.from / 100)]);
    }
 });
 updateSliderBackground('#reuseSlider','pinks')
 
 // range slider for comfort
-var comfortSlider = $("#irs-park")
-comfortSlider.ionRangeSlider({
+var parkSlider = $("#irs-park")
+parkSlider.ionRangeSlider({
+   type: 'double',
    grid: true,
    min: 0,
    max: 100,
-   from: 50,
+   from: 33,
+   to: 66,
    postfix: "%",
    onFinish: function (data) {
      if (data.to == data.max && data.from == data.min) {
@@ -385,8 +357,23 @@ comfortSlider.ionRangeSlider({
      } else if (data.from == data.min) {
        map.setFilter('parking', ['all', ['<=', settings.comfort_chosen, data.to]]);
      } else {
-       map.setFilter('parking', ['all',['>=', settings.comfort_chosen, data.from],['<=', settings.parcels_chosen, data.to]]);
+       map.setFilter('parking', ['all',['>=', ,data.from],['<=', , data.to]]);
      }
+     update3ColorSliderBackground ("#parkSlider", data.from, data.to)
+   }
+});
+update3ColorSliderBackground("#parkSlider", 33, 66)
+
+// range slider for comfort
+var heightSlider = $("#irs-height")
+heightSlider.ionRangeSlider({
+   grid: false,
+   min: 0,
+   max: 100,
+   from: 100,
+   postfix: "%",
+   onFinish: function (data) {
+     map.setFilter('height', ['all'])
    }
 });
 
@@ -401,6 +388,17 @@ function updateSliderBackground (id, colormap) {
  gradient = 'linear-gradient(to right' + cmap + ')'
 
  $(id).find('.irs-line').css({background: gradient})
+}
+
+// update the gradient background of the slider
+function update3ColorSliderBackground (id, from, to) {
+
+  from_new = (((from - 50) * .99) + 50).toString()
+  to_new = (((to - 50) * .99) + 50).toString()
+
+  gradient = 'linear-gradient(to right, #83c58f 0%, #83c58f ' + from_new + '%, #ffec8b ' + from_new + '%, #ffec8b ' + to_new + '%, #6897bb ' + to_new + '%, #6897bb 100%)'
+
+  $(id).find('.irs-line').css({background: gradient})
 }
 
 // update the radius of circle layers
@@ -494,8 +492,6 @@ function updateColorLinear(layer, id, column, colormap, colorrange) {
 
   map.setFilter(layer);
 
-  settings.comfort_chosen = option
-
   // update the slider bounds
   $(id).data("ionRangeSlider").update({
     min: colorrange[0],
@@ -561,33 +557,109 @@ $(function(){
 
 // toggle building metrics button
 $(function(){
-  $("#metrics-toggle").click(function(){
+  $("#surface-full-button").click(function(){
     if ($(this).hasClass('visible')) {
-      $(this).toggleClass('btn-secondary btn-outline-secondary');
+      $(this).toggleClass('btn-danger btn-outline-danger');
+      $(this).removeClass('visible');
+
+      for (var i=0; i<settings.layers_visible.length; i++) {
+        if (settings.layers_visible[i] == 'surface_full') {
+          settings.layers_visible.splice(i, 1)
+        }
+      }
+
+      filter = ['match', ['get', 'Parking_Ty'], settings.layers_visible, true, false]
+      map.setFilter('parking', filter);
+
     } else {
-      $(this).toggleClass('btn-outline-secondary btn-secondary');
+      $(this).toggleClass('btn-outline-danger btn-danger');
+      $(this).addClass('visible');
+
+      settings.layers_visible.push('surface_full')
+
+      filter = ['match', ['get', 'Parking_Ty'], settings.layers_visible, true, false]
+      map.setFilter('parking', filter);
     }
   });
 });
 
-// toggle shadow metrics button
+// toggle building metrics button
 $(function(){
-  $("#shadow-toggle").click(function(){
+  $("#surface-partial-button").click(function(){
     if ($(this).hasClass('visible')) {
       $(this).toggleClass('btn-secondary btn-outline-secondary');
+      $(this).removeClass('visible');
+
+      for (var i=0; i<settings.layers_visible.length; i++) {
+        if (settings.layers_visible[i] == 'surface_partial') {
+          settings.layers_visible.splice(i, 1)
+        }
+      }
+
+      filter = ['match', ['get', 'Parking_Ty'], settings.layers_visible, true, false]
+      map.setFilter('parking', filter);
     } else {
       $(this).toggleClass('btn-outline-secondary btn-secondary');
+      $(this).addClass('visible');
+
+      settings.layers_visible.push('surface_partial')
+
+      filter = ['match', ['get', 'Parking_Ty'], settings.layers_visible, true, false]
+      map.setFilter('parking', filter);
     }
   });
 });
 
-// toggle shadow metrics button
+// toggle building metrics button
 $(function(){
-  $("#offsets-toggle").click(function(){
+  $("#garage-full-button").click(function(){
     if ($(this).hasClass('visible')) {
-      $(this).toggleClass('btn-secondary btn-outline-secondary');
+      $(this).toggleClass('btn-primary btn-outline-primary');
+      $(this).removeClass('visible');
+
+      for (var i=0; i<settings.layers_visible.length; i++) {
+        if (settings.layers_visible[i] == 'garage_full') {
+          settings.layers_visible.splice(i, 1)
+        }
+      }
+
+      filter = ['match', ['get', 'Parking_Ty'], settings.layers_visible, true, false]
+      map.setFilter('parking', filter);
     } else {
-      $(this).toggleClass('btn-outline-secondary btn-secondary');
+      $(this).toggleClass('btn-outline-primary btn-primary');
+      $(this).addClass('visible');
+
+      settings.layers_visible.push('garage_full')
+
+      filter = ['match', ['get', 'Parking_Ty'], settings.layers_visible, true, false]
+      map.setFilter('parking', filter);
+    }
+  });
+});
+
+// toggle building metrics button
+$(function(){
+  $("#garage-partial-button").click(function(){
+    if ($(this).hasClass('visible')) {
+      $(this).toggleClass('btn-info btn-outline-info');
+      $(this).removeClass('visible');
+
+      for (var i=0; i<settings.layers_visible.length; i++) {
+        if (settings.layers_visible[i] == 'garage_partial') {
+          settings.layers_visible.splice(i, 1)
+        }
+      }
+
+      filter = ['match', ['get', 'Parking_Ty'], settings.layers_visible, true, false]
+      map.setFilter('parking', filter);
+    } else {
+      $(this).toggleClass('btn-outline-info btn-info');
+      $(this).addClass('visible');
+
+      settings.layers_visible.push('garage_partial')
+
+      filter = ['match', ['get', 'Parking_Ty'], settings.layers_visible, true, false]
+      map.setFilter('parking', filter);
     }
   });
 });

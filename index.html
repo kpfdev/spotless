@@ -37,15 +37,15 @@
         <!--Menu Top-->
         <div id="menu-top" class="row fixed-top m-0 p-0">
 
-          <!--Metrics-->
+          <!--Brand-->
           <div class="col-2 border-right p-3">
               <h3 class='col-12 font-weight-bold mb-0 px-0'>Spotless</h5>
           </div>
 
           <!--Metrics-->
-          <div class="col-4 border-right p-3">
+          <div class="col-4 border-right px-3 py-2">
             <h5 class='col-12 font-weight-bold text-center m-0 mb-2 px-0'>Metrics</h5>
-            <div class="row mx-3">
+            <div class="row mx-0">
               <p class="col-4 border-bottom m-0">Apt Units</p>
               <p class="col-2 gfa1 text-right border-bottom border-right m-0">1,200</p>
               <p class="col-4 border-bottom m-0">New Jobs</p>
@@ -64,13 +64,13 @@
               <h5 class='col-12 font-weight-bold text-center m-0 mb-2 px-0'>Layers</h5>
 
               <div class='m-0 p-0'>
-                <button id="new-shadow-button" type="button" class="btn btn-secondary btn-sm mb-1 visible" aria-haspopup="false">Surface Lot (Full)</button>
-                <button id="one-hour-button" type="button" class="btn btn-primary btn-sm mb-1 visible" aria-haspopup="false">Surface Lot (Partial)</button>
+                <button id="surface-full-button" type="button" class="btn btn-danger btn-sm mb-1 visible" aria-haspopup="false">Surface Lot (Full)</button>
+                <button id="surface-partial-button" type="button" class="btn btn-secondary btn-sm mb-1 visible" aria-haspopup="false">Surface Lot (Partial)</button>
               </div>
 
               <div class='m-0 p-0'>
-                <button id="new-one-hour-button" type="button" class="btn btn-danger btn-sm mb-1 visible" aria-haspopup="false">Garage (standalone)</button>
-                <button id="reduced-one-hour-button" type="button" class="btn btn-info btn-sm mb-1 visible" aria-haspopup="false">Garage (in building)</button>
+                <button id="garage-full-button" type="button" class="btn btn-primary btn-sm mb-1 visible" aria-haspopup="false">Garage (standalone)</button>
+                <button id="garage-partial-button" type="button" class="btn btn-info btn-sm mb-1 visible" aria-haspopup="false">Garage (in building)</button>
               </div>
             </div>
 
@@ -79,19 +79,25 @@
 
 
           <!--Color-->
-          <div class="col-2 p-3">
+          <div class="col-2 px-3 py-2">
             <div class="row justify-content-center">
               <h5 class="col-12 font-weight-bold text-center m-0 mb-2 px-0">Height</h5>
 
-              <div class="dropdown">
-                <button id="comfort-dropdown" type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  % of Time in Comfort
+              <div class='col-12 px-3 mb-3'>
+                <div id="heightSlider">
+                  <div id="irs-height"></div>
+                </div>
+              </div>
+
+              <div class="dropdown col-12">
+                <button id="comfort-dropdown" type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Buildable Area
                 </button>
 
                 <div id="comfort-dropdown-item" class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-                  <button class="dropdown-item" onclick='updateDropdown(this);updateColorLinear("comfort", "#irs-comfort", "_radiation", "red2green",[0,1500])' href="#">Type</button>
-                  <button class="dropdown-item" onclick='updateDropdown(this);updateColorLinear("comfort", "#irs-comfort", "_perc_comfort", "red2green",[25,50])' href="#">Buildable Area</button>
-                  <button class="dropdown-item" onclick='updateDropdown(this);updateColorLinear("comfort", "#irs-comfort", "_perc_improve_comfort", "red2white2green",[-20,20])' href="#">Surface Area</button>
+                  <button class="dropdown-item" onclick='updateDropdown(this);updateHeight("num_spots")' href="#">Num Parking Spots</button>
+                  <button class="dropdown-item" onclick='updateDropdown(this);updateHeight("buildable_a")' href="#">Buildable Area</button>
+                  <button class="dropdown-item" onclick='updateDropdown(this);updateHeight("surface_are")' href="#">Surface Area</button>
                 </div>
               </div>
             </div>

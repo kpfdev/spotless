@@ -85,6 +85,10 @@ button {
     height: 20px;
 }
 
+.irs--flat .irs-bar {
+  height: 20px;
+}
+
 .irs-grid {
     height: 15px;
 }
@@ -94,13 +98,11 @@ button {
 }
 
 #reuseSlider .irs-bar {
-  height: 20px;
   background-color: #ed556500 !important;
 }
 
 #parkSlider .irs-bar {
-  height: 20px;
-  background-color: #83c58f !important;
+  background-color: #83c58f00 !important;
 }
 
 .irs-single {
