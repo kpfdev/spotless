@@ -15,7 +15,18 @@ body {
 }
 
 .btn-info {
-  color: white;
+  background-color: #a6dcf9;
+  border-color: #a6dcf9;
+}
+
+.btn-danger {
+  background-color: #fe005a;
+  border-color: #fe005a;
+}
+
+.btn-secondary {
+  background-color: #ff88b2;
+  border-color: #ff88b2;
 }
 
 .layer-button .visible {

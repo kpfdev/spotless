@@ -1,16 +1,9 @@
 var settings = {
-  'color_column':'wed_12',
-  'comfort_chosen':'perc_comfort',
-  'sunlight_chosen':'kpf_hours',
   'percent_reused': 100,
+  'useMix1': 33,
+  'useMix2': 66,
   'layers_visible':['surface_full','surface_partial','garage_full','garage_partial'],
   'storyItem':0,
-}
-
-var colors = {
-  'newShadow':'#2db3ed',
-  'reducedShadow':'#f2e202',
-  'parks':'#c6efb6'
 }
 
 var cmaps = {
@@ -22,12 +15,6 @@ var cmaps = {
 }
 
 var columnTitles = {
-  'comfort': {
-    'perc_comfort_summer':'% of Time in Comfort (Summer)',
-    'perc_stress_summer':'% of Time in Stress (Summer)',
-    'perc_comfort_winter':'% of Time in Comfort (Winter)',
-    'perc_stress_winter':'% of Time in Stress (Winter)'
-  },
   'options': {
     'kpf':'Competition Proposal',
     '100acre':'100 Acre',
@@ -35,6 +22,20 @@ var columnTitles = {
     'ch91':'Chapter 91',
   }
 }
+
+var json = (function() {
+    var json = null;
+    $.ajax({
+        'async': false,
+        'global': false,
+        'url': "./data/NYC_Parking.geojson",
+        'dataType': "json",
+        'success': function (data) {
+            json = data;
+        }
+    });
+    return json;
+})();
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGNoYXJ2ZXkiLCJhIjoiY2ltemVpNjY1MDRlanVya2szYzlnM2dxcyJ9.im9EDlP7YIYefEt_wz2fww';
 
@@ -88,7 +89,7 @@ map.on('load', function() {
       'type': 'fill-extrusion',
       'source': {
         'type': 'geojson',
-        'data': './data/NYC_Parking.geojson'
+        'data': json
       },
       'layout': {
         'visibility': 'visible'
@@ -103,8 +104,8 @@ map.on('load', function() {
           'garage_partial', '#bee1f7',
           /* other */ '#ccc'
         ],
-        'fill-extrusion-opacity': 1,
-        'fill-extrusion-height': ['get','Height']
+        'fill-extrusion-height': ["get", "Height"],
+        'fill-extrusion-opacity': 1
       }
     }, labelLayerId);
 
@@ -279,6 +280,60 @@ function storySelect(storyNumber) {
   map.setFilter(fill.layer, ['all',['<=', fill.column, fill.to],['>=', fill.column, fill.from]])
 }
 
+function getMetrics() {
+
+  var parkingSpots = [0]
+  var numApts = [0]
+  var numWorkers = [0]
+  var parkArea = [0]
+
+  console.log(1 - (settings.percent_reused / 100))
+  console.log(settings.useMix1)
+  console.log(settings.useMix2)
+
+  for (var i in json.features) {
+    if (json.features[i].properties.Leftover_P <= (1 - (settings.percent_reused / 100))) {
+      parkingSpots.push(json.features[i].properties.Parking_Sp)
+    } else {
+      if (json.features[i].properties.RandomInt < settings.useMix1) {
+        parkArea.push(json.features[i].properties.Buildable_)
+      } else if (json.features[i].properties.RandomInt < settings.useMix2) {
+        numApts.push(json.features[i].properties.Num_Apts)
+      } else {
+        numWorkers.push(json.features[i].properties.Num_Worker)
+      }
+    }
+  }
+  $("#parkingSpots").text(nFormatter(parkingSpots.reduce(add), 1))
+  $("#numApts").text(nFormatter(numApts.reduce(add), 1))
+  $("#numWorkers").text(nFormatter(numWorkers.reduce(add), 2))
+  $("#parkArea").text(nFormatter(parkArea.reduce(add), ) + ' sf')
+}
+
+function add(accumulator, a) {
+    return accumulator + a;
+}
+
+function nFormatter(num, digits) {
+  var si = [
+    { value: 1, symbol: "" },
+    { value: 1E3, symbol: "k" },
+    { value: 1E6, symbol: "M" },
+    { value: 1E9, symbol: "G" },
+    { value: 1E12, symbol: "T" },
+    { value: 1E15, symbol: "P" },
+    { value: 1E18, symbol: "E" }
+  ];
+  var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  var i;
+  for (i = si.length - 1; i > 0; i--) {
+    if (num >= si[i].value) {
+      break;
+    }
+  }
+  return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+}
+
 // Start story
 $(function(){
   $("#start-button").click(function(e){
@@ -335,6 +390,7 @@ reuseSlider.ionRangeSlider({
    onFinish: function (data) {
      settings.percent_reused = data.from
      map.setFilter('parking', ['>=', 'Leftover_P', 1 - (data.from / 100)]);
+     getMetrics()
    }
 });
 updateSliderBackground('#reuseSlider','pinks')
@@ -350,21 +406,16 @@ parkSlider.ionRangeSlider({
    to: 66,
    postfix: "%",
    onFinish: function (data) {
-     if (data.to == data.max && data.from == data.min) {
-       map.setFilter('parking', ['all'])
-     } else if (data.to == data.max) {
-       map.setFilter('parking', ['all', ['>=', settings.comfort_chosen, data.from]]);
-     } else if (data.from == data.min) {
-       map.setFilter('parking', ['all', ['<=', settings.comfort_chosen, data.to]]);
-     } else {
-       map.setFilter('parking', ['all',['>=', ,data.from],['<=', , data.to]]);
-     }
+     settings.useMix1 = data.from
+     settings.useMix2 = data.to
+     'parking', ['all',['>=', 'RandomInt', data.from],['<=', 'RandomInt', data.to]]
+     getMetrics()
      update3ColorSliderBackground ("#parkSlider", data.from, data.to)
    }
 });
 update3ColorSliderBackground("#parkSlider", 33, 66)
 
-// range slider for comfort
+// range slider for height
 var heightSlider = $("#irs-height")
 heightSlider.ionRangeSlider({
    grid: false,
@@ -373,7 +424,7 @@ heightSlider.ionRangeSlider({
    from: 100,
    postfix: "%",
    onFinish: function (data) {
-     map.setFilter('height', ['all'])
+     updateHeight('parking', 'Height', data.from / 100)
    }
 });
 
@@ -402,16 +453,8 @@ function update3ColorSliderBackground (id, from, to) {
 }
 
 // update the radius of circle layers
-function updateCircleRadius(layer, column, multiplier) {
-
-  map.setPaintProperty(layer, 'circle-radius', [
-      "interpolate", ["linear"], ["zoom"],
-      // when zoom is 0, set each feature's circle radius to the value of its "rating" property
-      0, ["get", column],
-      // when zoom is 10, set each feature's circle radius to ten times the value of its "rating" property
-      10, ["*", multiplier, ["get", column]]
-  ]);
-
+function updateHeight(layer, column, multiplier) {
+  map.setPaintProperty(layer, 'fill-extrusion-height', ['*', ["get", column], multiplier]);
 }
 
 function selectOption(option) {

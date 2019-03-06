@@ -3,7 +3,7 @@
 
   <head>
 
-    <title>Channel Side, Boston</title>
+    <title>Spotless</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -44,16 +44,16 @@
 
           <!--Metrics-->
           <div class="col-4 border-right px-3 py-2">
-            <h5 class='col-12 font-weight-bold text-center m-0 mb-2 px-0'>Metrics</h5>
+            <h5 class='col-12 font-weight-bold text-center m-0 mb-3 px-0'>Metrics</h5>
             <div class="row mx-0">
-              <p class="col-4 border-bottom m-0">Apt Units</p>
-              <p class="col-2 gfa1 text-right border-bottom border-right m-0">1,200</p>
-              <p class="col-4 border-bottom m-0">New Jobs</p>
-              <p class="col-2 gfa2 text-right border-bottom m-0">14,150</td>
-              <p class="col-4 m-0">Parking Spots</p>
-              <p class="col-2 gfa1 text-right border-right m-0">1,200</p>
-              <p class="col-4 m-0">Park Area (SF)</p>
-              <p class="col-2 gfa2 text-right m-0">14,150</td>
+              <p class="col-3 border-bottom m-0">Apt Units</p>
+              <p id="numApts" class="col-3 gfa1 text-right font-weight-bold border-bottom border-right m-0">1M</p>
+              <p class="col-3 border-bottom m-0">New Jobs</p>
+              <p id="numWorkers" class="col-3 gfa2 text-right font-weight-bold border-bottom m-0">5.03M</td>
+              <p class="col-3 m-0">Parking Spots</p>
+              <p id="parkingSpots" class="col-3 gfa1 text-right font-weight-bold border-right m-0">0</p>
+              <p class="col-3 m-0">Park Area</p>
+              <p id="parkArea" class="col-3 gfa2 font-weight-bold text-right m-0">165.5M sf</td>
             </div>
           </div>
           <!--Metrics-->
@@ -81,7 +81,7 @@
           <!--Color-->
           <div class="col-2 px-3 py-2">
             <div class="row justify-content-center">
-              <h5 class="col-12 font-weight-bold text-center m-0 mb-2 px-0">Height</h5>
+              <h5 class="col-12 font-weight-bold text-center m-0 mb-3 px-0">Height</h5>
 
               <div class='col-12 px-3 mb-3'>
                 <div id="heightSlider">
@@ -89,7 +89,7 @@
                 </div>
               </div>
 
-              <div class="dropdown col-12">
+              <!-- <div class="dropdown col-12">
                 <button id="comfort-dropdown" type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Buildable Area
                 </button>
@@ -99,7 +99,7 @@
                   <button class="dropdown-item" onclick='updateDropdown(this);updateHeight("buildable_a")' href="#">Buildable Area</button>
                   <button class="dropdown-item" onclick='updateDropdown(this);updateHeight("surface_are")' href="#">Surface Area</button>
                 </div>
-              </div>
+              </div> -->
             </div>
 
           </div>
@@ -130,7 +130,7 @@
             <div class="row">
 
               <div class="col-2 p-0">
-                <h5 class='text-right h-100 mb-0 pt-3'>% Park</h5>
+                <h5 class='text-right h-100 mb-0 pt-3'>Use Mix</h5>
               </div>
 
               <div class='col-10 px-3'>
