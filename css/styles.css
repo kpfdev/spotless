@@ -9,36 +9,64 @@ body {
   z-index: 0;
 }
 
-.btn:focus,.btn:active {
-   outline: none !important;
-   box-shadow: none;
+.c-1-color {
+  background: #d3d3d3;
 }
 
-.btn-info {
-  background-color: #a6dcf9;
-  border-color: #a6dcf9;
+.c-2-color {
+  background: #83c58f;
 }
 
-.btn-danger {
-  background-color: #fe005a;
-  border-color: #fe005a;
+.c-3-color {
+  background: #ffec8b;
 }
 
-.btn-secondary {
-  background-color: #ff88b2;
-  border-color: #ff88b2;
+.c-4-color {
+  background: #6897bb;
 }
 
-.layer-button .visible {
-   color: 'yellow';
-   background-color: 'yellow';
-   border-color: 'yellow';
+.slider-text {
+  color: rgba(0,0,0,0.4);
+  font-size: 1;
+  background-blend-mode: multiply;
 }
 
-.layer-button .hidden {
-   color: 'grey';
-   background-color: 'grey';
-   border-color: 'grey';
+.noUi-target {
+  height: 24px;
+}
+
+.noUi-base {
+  height: 22px;
+}
+
+.noUi-connects {
+  height: 22px;
+}
+
+.noUi-handle {
+  height: 32px !important;
+}
+
+.noUi-handle:before, .noUi-handle:after {
+  height: 18px;
+}
+
+.noUi-touch-area {
+  height: 32px !important;
+}
+
+.noUi-marker-horizontal.noUi-marker-large {
+  width: 1px;
+  height: 12px;
+}
+
+.noUi-marker-horizontal.noUi-marker-normal {
+  width: 1px;
+  height: 6px;
+}
+
+#heightSlider .noUi-connect {
+	background: #ccc;
 }
 
 #next-button {
@@ -47,27 +75,6 @@ body {
 
 #previous-button {
   display: none;
-}
-
-button {
-  color: white;
-}
-
-#column-left {
-  background-color: #ffffff;
-  overflow-y: auto;
-  -ms-flex: 0 0 400px;
-  flex: 0 0 400px;
-  box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-
-#column-right {
-  background-color: #ffffff;
-  width: 0 0 440px;
-  max-width: 440px;
-  flex: 0 0 440px;
-  max-height: 0px;
 }
 
 .data-component {
@@ -79,46 +86,6 @@ button {
   box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
 }
 
-.irs-from, .irs-to, .irs-handle>i:first-child {
-
-  background-color: black !important;
-}
-
-.irs-from::before, .irs-to::before, .irs-single::before {
-  border-top-color: black !important;
-}
-
-.irs--flat .irs-handle {
-    height: 26px;
-}
-
-.irs--flat .irs-line {
-    height: 20px;
-}
-
-.irs--flat .irs-bar {
-  height: 20px;
-}
-
-.irs-grid {
-    height: 15px;
-}
-
-.irs-grid-text {
-    line-height: 0px;
-}
-
-#reuseSlider .irs-bar {
-  background-color: #ed556500 !important;
-}
-
-#parkSlider .irs-bar {
-  background-color: #83c58f00 !important;
-}
-
-.irs-single {
-  background-color: black !important;
-}
 
 .dropdown-menu {
   box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
@@ -152,11 +119,6 @@ button {
   z-index: 1000;
 }
 
-.ramp {
-  height: 20px;
-  width: 100%;
-}
-
 .scrollable-menu {
     height: auto;
     max-height: 600px;
@@ -169,4 +131,8 @@ table {
 
 .table td {
   padding: .5rem;
+}
+
+.toggle-handle {
+  background-color: white;
 }

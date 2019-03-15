@@ -14,13 +14,16 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap_toggle/bootstrap-toggle.css" rel="stylesheet">
 
-    <!-- Ion Slider -->
+    <!-- Slider CSS -->
     <link href='vendor/ion_slider/css/ion.rangeSlider.min.css' rel='stylesheet'/>
+    <link href='vendor/nouislider/nouislider.css' rel='stylesheet'/>
+
 
     <!-- Mapbox -->
-    <script src='vendor/mapbox/js/mapbox-gl.js'></script>
-    <link href='vendor/mapbox/css/mapbox-gl.css' rel='stylesheet'/>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
 
     <!--Custom CSS-->
     <link rel="stylesheet" href="css/styles.css" type="text/css" />
@@ -43,35 +46,43 @@
           </div>
 
           <!--Metrics-->
-          <div class="col-4 border-right px-3 py-2">
+          <div class="col-6 border-right px-0 py-2">
             <h5 class='col-12 font-weight-bold text-center m-0 mb-3 px-0'>Metrics</h5>
             <div class="row mx-0">
-              <p class="col-3 border-bottom m-0">Apt Units</p>
-              <p id="numApts" class="col-3 gfa1 text-right font-weight-bold border-bottom border-right m-0">1M</p>
-              <p class="col-3 border-bottom m-0">New Jobs</p>
-              <p id="numWorkers" class="col-3 gfa2 text-right font-weight-bold border-bottom m-0">5.03M</td>
-              <p class="col-3 m-0">Parking Spots</p>
-              <p id="parkingSpots" class="col-3 gfa1 text-right font-weight-bold border-right m-0">0</p>
-              <p class="col-3 m-0">Park Area</p>
-              <p id="parkArea" class="col-3 gfa2 font-weight-bold text-right m-0">165.5M sf</td>
+              <div class="col-3">
+                <div class="row">
+                  <p class="col-8 m-0">Apt Units</p>
+                  <p id="numApts" class="col-4 gfa1 text-right font-weight-bold border-right m-0">0</p>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="row">
+                  <p class="col-8 m-0">New Jobs</p>
+                  <p id="numWorkers" class="col-4 gfa2 text-right font-weight-bold border-right m-0">0</td>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="row">
+                  <p class="col-8 m-0">Parking Spots</p>
+                  <p id="parkingSpots" class="col-4 gfa1 text-right font-weight-bold border-right m-0">0</p>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="row">
+                  <p class="col-8 m-0">Park Area (sf)</p>
+                  <p id="parkArea" class="col-4 gfa2 font-weight-bold text-right m-0">0</td>
+                </div>
+              </div>
             </div>
           </div>
           <!--Metrics-->
 
-          <!--Layers-->
-          <div class='col-4 border-right px-3 py-2'>
+          <!--Colors-->
+          <div class='col-2 border-right px-3 py-2'>
             <div class="row justify-content-center">
-              <h5 class='col-12 font-weight-bold text-center m-0 mb-2 px-0'>Layers</h5>
+              <h5 class='col-12 font-weight-bold text-center m-0 mb-2 px-0'>Mode</h5>
 
-              <div class='m-0 p-0'>
-                <button id="surface-full-button" type="button" class="btn btn-danger btn-sm mb-1 visible" aria-haspopup="false">Surface Lot (Full)</button>
-                <button id="surface-partial-button" type="button" class="btn btn-secondary btn-sm mb-1 visible" aria-haspopup="false">Surface Lot (Partial)</button>
-              </div>
-
-              <div class='m-0 p-0'>
-                <button id="garage-full-button" type="button" class="btn btn-primary btn-sm mb-1 visible" aria-haspopup="false">Garage (standalone)</button>
-                <button id="garage-partial-button" type="button" class="btn btn-info btn-sm mb-1 visible" aria-haspopup="false">Garage (in building)</button>
-              </div>
+              <input id='modeToggle' type="checkbox" checked data-toggle="toggle" data-on="Parking Lot Viewer" data-off="Development Mode" data-onstyle="primary" data-offstyle="danger" onchange="modeToggle('modeToggle')">
             </div>
 
           </div>
@@ -81,25 +92,7 @@
           <!--Color-->
           <div class="col-2 px-3 py-2">
             <div class="row justify-content-center">
-              <h5 class="col-12 font-weight-bold text-center m-0 mb-3 px-0">Height</h5>
-
-              <div class='col-12 px-3 mb-3'>
-                <div id="heightSlider">
-                  <div id="irs-height"></div>
-                </div>
-              </div>
-
-              <!-- <div class="dropdown col-12">
-                <button id="comfort-dropdown" type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Buildable Area
-                </button>
-
-                <div id="comfort-dropdown-item" class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-                  <button class="dropdown-item" onclick='updateDropdown(this);updateHeight("num_spots")' href="#">Num Parking Spots</button>
-                  <button class="dropdown-item" onclick='updateDropdown(this);updateHeight("buildable_a")' href="#">Buildable Area</button>
-                  <button class="dropdown-item" onclick='updateDropdown(this);updateHeight("surface_are")' href="#">Surface Area</button>
-                </div>
-              </div> -->
+              <h5 class="col-12 font-weight-bold text-center m-0 mb-3 px-0">Story</h5>
             </div>
 
           </div>
@@ -108,52 +101,13 @@
         </div>
         <!--Top Menu-->
 
-        <div id="menu-bottom" class="row fixed-bottom m-0 px-3 py-0">
+        <div id="menu-bottom" class="row fixed-bottom m-0 px-5 py-0">
 
-          <div class="col-12 border-bottom px-0 py-3">
+          <div class="col-12 border-bottom px-0 py-5">
             <div class="row">
 
-              <div class="col-2 p-0">
-                <h5 class="text-right h-100 mb-0 pt-3">% of Parking Reused</h5>
-              </div>
-
-              <div class='col-10 px-3'>
-                <div id="reuseSlider">
-                  <div id="irs-reuse"></div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-12 border-bottom px-0 py-3">
-            <div class="row">
-
-              <div class="col-1 px-3">
-                <table style="width:100%">
-                  <tr>
-                    <td width="20%" style="background-color:#83c58f"></td>
-                    <td>Park</td>
-                  </tr>
-                  <tr>
-                    <td style="background-color:#ffec8b"></td>
-                    <td>Residential</td>
-                  </tr>
-                  <tr>
-                    <td style="background-color:#6897bb"></td>
-                    <td>Commercial</td>
-                  </tr>
-                </table>
-              </div>
-
-              <div class="col-1 p-0">
-                <h5 class='text-right h-100 mb-0 pt-3'>Use Mix</h5>
-              </div>
-
-              <div class='col-10 px-3'>
-                <div id="parkSlider">
-                  <div id="irs-park"></div>
-                </div>
+              <div class='col-12 px-4'>
+                <div id="useMixSlider"></div>
               </div>
 
             </div>
@@ -175,17 +129,12 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/bootstrap_toggle/bootstrap-toggle.js"></script>
 
-    <!-- Main JavaScript -->
+    <!-- Slider JavaScript -->
     <script src='vendor/ion_slider/js/ion.rangeSlider.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js'></script>
-    <script src='vendor/threejs/GLTFLoader.js'></script>
-    <script src='vendor/threejs/MTLLoader.js'></script>
-    <script src='vendor/threejs/LoaderSupport.js'></script>
-    <script src='vendor/threejs/OBJLoader2.js'></script>
-    <script src='vendor/threejs/OBJLoader.js'></script>
-
-
+    <script src="vendor/nouislider/nouislider.js"></script>
+    <!-- Main JavaScript -->
     <script type="text/javascript" src="js/main.js"></script>
 
   </body>
