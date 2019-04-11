@@ -41,36 +41,52 @@
         <div id="menu-top" class="row fixed-top m-0 p-0">
 
           <!--Brand-->
-          <div class="col-2 border-right p-3">
+          <div class="col-6 col-md-3 border-right p-3">
               <h3 class='col-12 font-weight-bold mb-0 px-0'>Spotless</h5>
           </div>
 
           <!--Metrics-->
-          <div class="col-6 border-right px-0 py-2">
-            <h5 class='col-12 font-weight-bold text-center m-0 mb-3 px-0'>Metrics</h5>
-            <div class="row mx-0">
-              <div class="col-3">
+          <div class="col-12 col-md-6 order-3 order-md-2 border-right px-3 py-2">
+            <div class="row">
+              <h5 class='col-12 font-weight-bold text-center m-0 mb-3 px-0 d-none d-md-block'>Metrics</h5>
+              <div class="col-3 border-right">
                 <div class="row">
-                  <p class="col-8 m-0">Apt Units</p>
-                  <p id="numApts" class="col-4 gfa1 text-right font-weight-bold border-right m-0">0</p>
+                  <div class="col-12 text-center">
+                    <p id="numApts" class="font-weight-bold m-0">0</p>
+                  </div>
+                  <div class="col-12 text-center px-2">
+                    <p class="mb-2"><small>Apt Units</small></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3 border-right">
+                <div class="row">
+                  <div class="col-12 text-center px-2">
+                    <p id="numWorkers" class="font-weight-bold m-0">0</p>
+                  </div>
+                  <div class="col-12 text-center">
+                    <p class="mb-2"><small>New Jobs</small></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3 border-right">
+                <div class="row">
+                  <div class="col-12 text-center px-2">
+                    <p id="parkingSpots" class="font-weight-bold m-0">0</p>
+                  </div>
+                  <div class="col-12 text-center">
+                    <p class="mb-2"><small>Parking Spots</small></p>
+                  </div>
                 </div>
               </div>
               <div class="col-3">
                 <div class="row">
-                  <p class="col-8 m-0">New Jobs</p>
-                  <p id="numWorkers" class="col-4 gfa2 text-right font-weight-bold border-right m-0">0</td>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="row">
-                  <p class="col-8 m-0">Parking Spots</p>
-                  <p id="parkingSpots" class="col-4 gfa1 text-right font-weight-bold border-right m-0">0</p>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="row">
-                  <p class="col-8 m-0">Park Area (sf)</p>
-                  <p id="parkArea" class="col-4 gfa2 font-weight-bold text-right m-0">0</td>
+                  <div class="col-12 text-center px-2">
+                    <p id="parkArea" class="font-weight-bold m-0">0</p>
+                  </div>
+                  <div class="col-12 text-center">
+                    <p class="mb-2"><small>Park Area (sf)</small></p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -78,9 +94,9 @@
           <!--Metrics-->
 
           <!--Colors-->
-          <div class='col-2 border-right px-3 py-2'>
+          <div class='col-6 col-md-3 order-2 order-md-3 border-right px-3 py-2'>
             <div class="row justify-content-center">
-              <h5 class='col-12 font-weight-bold text-center m-0 mb-2 px-0'>Mode</h5>
+              <h5 class='col-12 font-weight-bold text-center m-0 mb-3 px-0 d-none d-md-block'>Mode</h5>
 
               <input id='modeToggle' type="checkbox" checked data-toggle="toggle" data-on="Parking Lot Viewer" data-off="Development Mode" data-onstyle="primary" data-offstyle="danger" onchange="modeToggle('modeToggle')">
             </div>
@@ -88,22 +104,12 @@
           </div>
           <!--Layers-->
 
-
-          <!--Color-->
-          <div class="col-2 px-3 py-2">
-            <div class="row justify-content-center">
-              <h5 class="col-12 font-weight-bold text-center m-0 mb-3 px-0">Story</h5>
-            </div>
-
-          </div>
-          <!--Color-->
-
         </div>
         <!--Top Menu-->
 
-        <div id="menu-bottom" class="row fixed-bottom m-0 px-5 py-0">
+        <div id="menu-bottom" class="row fixed-bottom m-0 px-3 py-0">
 
-          <div class="col-12 border-bottom px-0 py-5">
+          <div class="col-12 px-0 mb-2 pt-4 pb-5">
             <div class="row">
 
               <div class='col-12 px-4'>

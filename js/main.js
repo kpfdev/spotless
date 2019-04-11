@@ -23,7 +23,8 @@ var popupColumns = {
     'BBL': 'BBL'
   },
   'Development Potential' : {
-    'Leftover_A': 'Potential GFA',
+    'Num_Floors': 'Number of Floors',
+    'Constructi': 'Potential GFA',
     'Buildable_': 'Park Area',
     'Num_Apts': 'Number of Apartments',
     'Num_Worker': 'Potential Workers'
@@ -48,9 +49,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGNoYXJ2ZXkiLCJhIjoiY2ltemVpNjY1MDRlanVya2szY
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/dcharvey/cjbpm8opy70gz2rskhcwuwz4r',
+    style: 'mapbox://styles/dcharvey/cjud1virg19oe1fqndotk3ksx',
     center: [-73.9826,40.7082],
-    zoom: 13.5,
+    zoom: 10,
     pitch: 0,
     bearing: 0
 });
@@ -229,11 +230,11 @@ function getMetrics() {
 
 function updateColors (values) {
   values.unshift('0')
-  var colors = ['#d3d3d3','#83c58f','#ffec8b','#6897bb']
+  var colors = ['#c3c3c3','#83c58f','#ffec8b','#6897bb']
   var params = [
     'step',
     ['get','RandomInt'],
-    'black'
+    'white'
   ]
 
   for (i=0;i<values.length;i++) {
