@@ -180,10 +180,8 @@ map.on('mouseleave', 'parking', function () {
 map.once('style.load', function(e) {
   //Hide loading bar once tiles from geojson are loaded
   map.on('data', function(e) {
-    if (e.dataType == 'source' && e.sourceId == 'parking-buildings') {
-      if (e.isSourceLoaded) {
-        document.getElementById("loading").style.visibility = "hidden";
-      }
+    if (e.sourceId == 'parking') {
+      document.getElementById("loading").style.visibility = "hidden";
     }
   })
 });
