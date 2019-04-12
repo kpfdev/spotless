@@ -136,9 +136,9 @@ map.on('load', function() {
     }, labelLayerId);
 
     map.on('click', 'parking', function (e) {
-      var coordinates = e.lngLat
+      var coordinates = e.lngLat;
       var properties = e.features[0].properties;
-      var tables = ''
+      var tables = '';
 
       for (i in popupColumns) {
         var title = i
@@ -175,6 +175,17 @@ map.on('mouseenter', 'parking', function () {
 // Change it back to a pointer when it leaves.
 map.on('mouseleave', 'parking', function () {
   map.getCanvas().style.cursor = '';
+});
+
+map.once('style.load', function(e) {
+  //Hide loading bar once tiles from geojson are loaded
+  map.on('data', function(e) {
+    if (e.dataType == 'source' && e.sourceId == 'parking-buildings') {
+      if (e.isSourceLoaded) {
+        document.getElementById("loading").style.visibility = "hidden";
+      }
+    }
+  })
 });
 
 function modeToggle(id) {

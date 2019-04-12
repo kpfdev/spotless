@@ -81,6 +81,21 @@ body {
   display: none;
 }
 
+#loading {
+  position: fixed;
+  margin-left: -30px;
+  margin-top: -30px;
+  left: 50%;
+  top: 50%;
+  z-index: 10000;
+  mix-blend-mode: multiply;
+}
+
+#loading img {
+  /* -webkit-filter: hue-rotate(200deg);
+  filter: hue-rotate(200deg); */
+}
+
 .data-component {
   border-width: 1px;
 }
