@@ -40,9 +40,14 @@
         <!--Menu Top-->
         <div id="menu-top" class="row fixed-top m-0 p-0">
 
-          <!--Brand-->
-          <div class="col-6 col-md-3 border-right p-3">
-              <h3 class='col-12 font-weight-bold mb-0 px-0'>Spotless</h5>
+          <!--Brand Computer-->
+          <div class="col-6 col-md-3 border-right px-3 py-2 d-none d-md-block">
+              <h3 class='col-12 font-weight-bold mb-0 px-0'>Spotless</h3>
+          </div>
+
+          <!--Brand Mobile-->
+          <div class="col-6 col-md-3 border-right px-3 py-2 d-block d-md-none">
+              <h5 class='col-12 font-weight-bold mb-0 px-0'>Spotless</h5>
           </div>
 
           <!--Metrics-->
@@ -97,10 +102,10 @@
           <div class='col-6 col-md-3 order-2 order-md-3 border-right px-3 py-2'>
             <div class="row justify-content-center">
               <h5 class='col-12 font-weight-bold text-center m-0 mb-3 px-0 d-none d-md-block'>Mode</h5>
-
-              <input id='modeToggle' type="checkbox" checked data-toggle="toggle" data-on="Parking Lot Viewer" data-off="Development Mode" data-onstyle="primary" data-offstyle="danger" onchange="modeToggle('modeToggle')">
+              <div class="col-12 align-middle text-center">
+                <input id='modeToggle' type="checkbox" checked data-toggle="toggle" data-on="Parking Viewer" data-off="Build Mode" data-onstyle="primary" data-offstyle="danger" data-size="small" onchange="modeToggle('modeToggle')"></input>
+              </div>
             </div>
-
           </div>
           <!--Layers-->
 

@@ -57,12 +57,16 @@ body {
 
 .noUi-marker-horizontal.noUi-marker-large {
   width: 1px;
-  height: 12px;
+  height: 10px;
 }
 
 .noUi-marker-horizontal.noUi-marker-normal {
   width: 1px;
   height: 6px;
+}
+
+.noUi-value {
+    font-size: 12px;
 }
 
 #heightSlider .noUi-connect {
