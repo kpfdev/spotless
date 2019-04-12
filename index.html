@@ -114,6 +114,76 @@
         </div>
         <!--Top Menu-->
 
+        <!--Story-->
+        <div class="row fixed-bottom justify-content-center mx-3">
+
+          <div id="story-0" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3">
+            <h4 id="story-title" class="font-weight-bold">Welcome to Spotless!</h4>
+            <p id="story-text" class="mb-3"><small>With autonomous vehicles (AVs) on the horizon, what will happen to New York City's parking lots?</small></p>
+            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this)">Continue</button>
+          </div>
+
+          <div id="story-1" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3 d-none">
+            <h4 id="story-title" class="font-weight-bold">Will we need parking in the future?</h4>
+            <p id="story-text" class="mb-3"><small>Some people think AVs will significantly reduce the need for parking in cities, but no one really know the impact that AVs will have.</small></p>
+            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this)">Continue</button>
+          </div>
+
+          <div id="story-2" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3 d-none">
+            <div class="row pb-4">
+              <div class="col col-6">
+                <img src="assets/Diagrams-01.png" alt="surface parking" height="100px">
+                <p><small class="font-weight-bold">surface parking</small></p>
+              </div>
+              <div class="col col-6">
+                <img src="assets/Diagrams-02.png" alt="surface parking" height="100px">
+                <p><small class="font-weight-bold">accessory parking</small></p>
+              </div>
+              <div class="col col-6">
+                <img src="assets/Diagrams-03.png" alt="surface parking" height="100px">
+                <p><small class="font-weight-bold">standalone garage</small></p>
+              </div>
+              <div class="col col-6">
+                <img src="assets/Diagrams-04.png" alt="surface parking" height="100px">
+                <p><small class="font-weight-bold">in-building parking</small></p>
+              </div>
+            </div>
+            <p id="story-text" class="mb-3"><small>We analyzed the existing off-street parking and found 4 main types of parking in NYC.</small></p>
+            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this)">Continue</button>
+          </div>
+
+          <div id="story-3" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3 d-none">
+            <h4 id="story-title" class="font-weight-bold">What if we made every parking lot a park?</h4>
+            <p id="story-text" class="mb-3"><small>There would be _____ acres of new park in NYC, or 11 more central parks.</small></p>
+            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this)">Continue</button>
+          </div>
+
+          <div id="story-4" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3 d-none">
+            <h4 id="story-title" class="font-weight-bold">What if we build housing on every parking lot?</h4>
+            <p id="story-text" class="mb-3"><small>There would be 3.1 million new apartments in NYC. That's an increase of 40%!</small></p>
+            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this)">Continue</button>
+          </div>
+
+          <div id="story-5" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3 d-none">
+            <h4 id="story-title" class="font-weight-bold">What do you think NYC's parking lots should be used for?</h4>
+            <!-- Default dropup button -->
+            <button id="check-park" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Park</button>
+            <button id="check-housing" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Housing</button>
+            <button id="check-office" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Office</button>
+            <button id="check-parking" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Keep the parking</button>
+            <button type="button" class="btn btn-primary btn-sm mt-3 px-5" onclick="storyNext(this)">Finish</button>
+          </div>
+
+          <div id="story-6" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3 d-none">
+            <h4 id="story-title" class="font-weight-bold">Explore your own futures!</h4>
+            <p id="story-text" class="mb-3"><small>Toggle between "Parking Viewer" mode and "Build Mode" above to explore parking lots, and then see the impact of converting them to new uses.</small></p>
+            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this)">Continue</button>
+          </div>
+
+        </div>
+        <!--Story-->
+
+        <!--Bottom Menu-->
         <div id="menu-bottom" class="row fixed-bottom m-0 px-3 py-0">
 
           <div class="col-12 px-0 pt-4 pb-5">
@@ -125,8 +195,8 @@
 
             </div>
           </div>
-
         </div>
+        <!--Bottom Menu-->
 
         <!--map loading spinner-->
         <div id="loading" class="spinner-grow text-info" role="status">
