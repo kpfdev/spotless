@@ -115,6 +115,7 @@ body {
 
 #menu-top {
   background-color: white;
+  line-height: 12px;
   box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
   z-index: 1000;
 }
