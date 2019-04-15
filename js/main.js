@@ -273,9 +273,9 @@ function getMetrics() {
 
   for (var i in json.features) {
     if (json.features[i].properties.RandomInt < settings.useMix0) {
-      parkingSpots.push(json.features[i].properties.Buildable_)
+      parkingSpots.push(json.features[i].properties.Parking_Sp)
     } else if (json.features[i].properties.RandomInt < settings.useMix1) {
-      parkArea.push(json.features[i].properties.Num_Apts)
+      parkArea.push(json.features[i].properties.Buildable_ * 2.29568e-5)
     } else if (json.features[i].properties.RandomInt < settings.useMix2) {
       numApts.push(json.features[i].properties.Num_Apts)
     } else {
@@ -484,6 +484,10 @@ function interpolate (range, steps) {
   return interpolation
 }
 
+function skipStory() {
+  $("#story-0").addClass('d-none')
+}
+
 // this moves the story forward to the next div in the story
 function storyNext() {
   $("#story-" + settings.storyItem).addClass('d-none')
@@ -539,8 +543,6 @@ function checkItem(element) {
 
 // store the preferred mix in the database
 function submitMix () {
-  console.log('submit');
-
   var params = {
     TableName: projectName,
     Item:{
