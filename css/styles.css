@@ -82,13 +82,16 @@ body {
 }
 
 #loading {
+  background-color: rgba(255,255,255,0.7);
+  z-index: 100000;
+}
+
+#icon {
   position: fixed;
   margin-left: -30px;
   margin-top: -30px;
   left: 50%;
   top: 50%;
-  background-color: rgba(255,255,255,0.5)
-  z-index: 100000;
   /* mix-blend-mode: multiply; */
 }
 
