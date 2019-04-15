@@ -88,7 +88,7 @@ body {
   left: 50%;
   top: 50%;
   z-index: 10000;
-  mix-blend-mode: multiply;
+  /* mix-blend-mode: multiply; */
 }
 
 #loading img {
@@ -122,8 +122,8 @@ body {
 }
 
 .mapboxgl-popup {
-    max-width: 400px;
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  max-width: 400px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
 #menu-top {
@@ -149,12 +149,21 @@ body {
   background-color: #007bff;
 }
 
-.story {
+.row-center {
+  position: fixed;
+  line-height: 16px;
+  z-index: 10000;
+}
+
+.column-center {
+  box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
+}
+
+.story-bottom {
   margin-bottom: 116px;
   line-height: 16px;
   background-color: white;
   box-shadow: 2px 6px 30px rgba(0,0,0,0.2);
-  z-index: 1000;
 }
 
 .scrollable-menu {
