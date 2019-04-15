@@ -188,6 +188,7 @@ map.once('style.load', function(e) {
   map.on('data', function(e) {
     if (e.sourceId == 'parking') {
       document.getElementById("loading").style.visibility = "hidden";
+      document.getElementById("story-0").style.visibility = "visible";
     }
   })
 });
