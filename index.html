@@ -12,6 +12,16 @@
     <meta charset='utf-8' />
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138260419-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-138260419-1');
+    </script>
+
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap_toggle/bootstrap-toggle.css" rel="stylesheet">
@@ -198,7 +208,15 @@
             <button id="check-residential" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Housing</button>
             <button id="check-office" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Office</button>
             <button id="check-parking" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Keep the parking</button>
-            <button type="button" class="btn btn-primary btn-sm mt-3 px-5" onclick="storyNext(this), submitMix()">Finish and explore!</button>
+            <button type="button" class="btn btn-primary btn-sm mt-3 px-5" onclick="storyNext(this), submitMix()">Submit</button>
+          </div>
+        </div>
+
+        <div id="story-5" class="row row-center position-fixed justify-content-center h-100 w-100 mx-0 px-3 d-none">
+          <div class="column-center align-self-center bg-white col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3">
+            <h4 class="font-weight-bold">Create your own scenarios!</h4>
+            <p class="mb-3"><small>Use the slider below to create your own unique future scenarios. Click on indivual parking lots to learn more about them.</small></p>
+            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this)">Explore</button>
           </div>
         </div>
         <!--Story-->
@@ -235,6 +253,9 @@
       <!--row-->
     </div>
     <!-- container -->
+
+    <!-- AWS -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>

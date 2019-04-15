@@ -26,7 +26,7 @@ var popupColumns = {
     'Parking_Sp': 'Parking Spots',
     'ZoneDist1': 'Zoning District',
     'Max_FAR': 'FAR',
-    'BBL': 'BBL'
+    // 'BBL': 'BBL'
   },
   'Development Potential' : {
     'Num_Floors': 'Number of Floors',
@@ -35,6 +35,48 @@ var popupColumns = {
     'Num_Apts': 'Number of Apartments',
     'Num_Worker': 'Potential Workers'
   }
+}
+
+var popupLabels = {
+  'Parking_Ty': {
+    'surface_full':'surface parking',
+    'surface_partial':'accessory parking',
+    'garage_full':'standalone garage',
+    'garage_partial':'in-building parking'
+  }
+}
+
+AWS.config.update({
+  region: "us-east-1",
+  // The endpoint should point to the local or remote computer where DynamoDB (downloadable) is running.
+  endpoint: 'https://dynamodb.us-east-1.amazonaws.com',
+  /*
+    accessKeyId and secretAccessKey defaults can be used while using the downloadable version of DynamoDB.
+    For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+  */
+  accessKeyId: "AKIAJYTQQK3EUCPGQ3QA",
+  secretAccessKey: "Bdpy0my9Fo3SvSG4atMWps4R/LKJPUcyRYeM0O2n"
+});
+
+var dynamodb = new AWS.DynamoDB();
+var docClient = new AWS.DynamoDB.DocumentClient();
+var projectName = 'spotless'
+var userData = {}
+
+ipLookUp()
+
+// lookup users IP address
+function ipLookUp() {
+  $.ajax('http://ip-api.com/json')
+  .then(
+    function success(response) {
+      // console.log('User\'s Location Data is ', response);
+      userData = response
+    },
+    function fail(data, status) {
+      // console.log('Request failed.  Returned status of', status);
+    }
+  );
 }
 
 var json = (function() {
@@ -153,10 +195,12 @@ map.on('load', function() {
 
           if (j == 'BBL') {
             propertyValue = properties[j]
+          } else if (j == 'Parking_Ty') {
+            propertyValue = popupLabels[j][properties[j]]
           } else if (typeof properties[j] == 'number') {
             propertyValue = nFormatter(properties[j], 2)
           } else {
-            propertyValue = properties[j]
+            propertyValue = properties[j].replace('_',' ')
           }
 
           var row = '<tr class="border-bottom"><td>' + popupColumns[i][j] + '</td><td class="text-right">' + propertyValue + '</td></tr>'
@@ -495,7 +539,52 @@ function checkItem(element) {
 
 // store the preferred mix in the database
 function submitMix () {
-  console.log(submitted);
+  console.log('submit');
+
+  var params = {
+    TableName: projectName,
+    Item:{
+      "userid": ID(),
+      "parking": settings.mix.parking,
+      "park": settings.mix.park,
+      "residential": settings.mix.residential,
+      "office": settings.mix.office,
+      "as": userData.as,
+      "city": userData.city,
+      "country": userData.country,
+      "countryCode": userData.countryCode,
+      "isp":  userData.isp,
+      "lat":  userData.lat,
+      "lon":  userData.lon,
+      "org":  userData.org,
+      "query":  userData.query,
+      "region":  userData.region,
+      "regionName":  userData.regionName,
+      "status":  userData.status,
+      "timezone":  userData.timezone,
+      "zip":  userData.zip,
+    }
+  };
+
+  // var paramsLeader = {
+  //   TableName: projectName,
+  //   ProjectionExpression: "username, rank_exp",
+  // };
+
+  var paramsLeader = {
+    TableName: projectName,
+    KeyConditionExpression: 'userid = :id',
+    ProjectionExpression: "username, rank_exp",
+    Limit: 3,
+    ExpressionAttributeValues: {
+      ':id': 'dog'
+    },
+    ScanIndexForward: false
+  };
+
+  createItem(params)
+  // readItem(paramsLeader)
+
 }
 
 function zoomIn() {
@@ -539,4 +628,52 @@ function userSelection() {
   useMixSlider.noUiSlider.set([100,100,100])
   map.setLayoutProperty('parking-buildings', 'visibility', 'visible');
   map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', 1);
+}
+
+var ID = function () {
+  return '_' + Math.random().toString(36).substr(2, 9);
+};
+
+// createTable(projectName);
+
+function createTable(projectName) {
+    var params = {
+        TableName : projectName,
+        AttributeDefinitions: [
+            {
+              AttributeName: "userid",
+              AttributeType: "S"
+            }
+        ],
+        KeySchema: [
+            {
+              AttributeName: "userid",
+              KeyType: "HASH" //partition key
+            }
+        ],
+        ProvisionedThroughput: {
+            ReadCapacityUnits: 6,
+            WriteCapacityUnits: 6
+        }
+    };
+
+    dynamodb.createTable(params, function(err, data) {
+        if (err) {
+            console.log("Unable to create table: " + "\n" + JSON.stringify(err, undefined, 2));
+        } else {
+            console.log("Created table: " + "\n" + JSON.stringify(data, undefined, 2));
+        }
+    });
+}
+
+// create a submit entry in the database
+function createItem(params) {
+
+    docClient.put(params, function(err, data) {
+        if (err) {
+            console.log("Unable to add item: " + "\n" + JSON.stringify(err, undefined, 2));
+        } else {
+            console.log("PutItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2));
+        }
+    });
 }
