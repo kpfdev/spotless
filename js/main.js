@@ -192,8 +192,8 @@ map.once('style.load', function(e) {
   })
 });
 
+// toggle between parking viewer mode and build mode
 function modeToggle() {
-  // this will contain a reference to the checkbox
   if (!document.getElementById('modeToggle').checked) {
       useMixSlider.noUiSlider.set([100,100,100]);
       map.setPaintProperty('parking', 'fill-color', [
@@ -344,10 +344,16 @@ useMixSlider.noUiSlider.on('update', function (values, handle) {
   getMetrics()
 });
 
+// when someone edits the slider in parking viewer mode, it automatically converts to build mode
+useMixSlider.noUiSlider.on('change', function (values, handle) {
+  if (document.getElementById('modeToggle').checked) {
+    modeToggle()
+    $('#modeToggle').bootstrapToggle('off');
+  }
+});
+
+// when slider is set, recolor the buildings
 useMixSlider.noUiSlider.on('set', function (values, handle) {
-
-  $('#modeToggle').bootstrapToggle('off');
-
   updateColors(values)
   filterBuildings('parking-buildings', 'RandomInt', parseInt(values[2]));
 });
@@ -445,7 +451,6 @@ function checkItem(element) {
 
   // toggle button to show it's selected
   $(element).toggleClass('btn-outline-primary btn-primary')
-  console.log($(element).attr('id'))
 
   // update settings to reflect the selected items
   var selected = $(element).attr('id').split('-')[1]
