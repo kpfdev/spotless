@@ -144,26 +144,26 @@
         <div class="row fixed-bottom justify-content-center mx-3">
 
           <div id="story-0" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3">
-            <h4 id="story-title" class="font-weight-bold">How much parking will we need in the future?</h4>
-            <p id="story-text" class="mb-3"><small>With autonomous vehicles (AVs) on the horizon, some people speculate New York City won't need as much parking in the future.</small></p>
+            <h4 id="story-title" class="font-weight-bold mb-4">How much parking will we need in the future?</h4>
+            <p id="story-text" class="mb-4"><small>With autonomous vehicles (AVs) on the horizon, some people speculate New York City won't need as much parking in the future.</small></p>
             <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this), zoomIn()">Continue</button>
           </div>
 
-          <div id="story-1" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3 d-none">
-            <div class="row pb-4">
-              <div class="col col-6">
+          <div id="story-1" class="story col-12 col-sm-12 col-md-8 col-lg-8 col-xl-4 text-center rounded p-3 d-none">
+            <div class="row pb-2">
+              <div class="col-6 col-sm-3">
                 <img src="assets/Diagrams-01.png" alt="surface parking" height="100px">
                 <p><small class="font-weight-bold">surface parking</small></p>
               </div>
-              <div class="col col-6">
+              <div class="col-6 col-sm-3">
                 <img src="assets/Diagrams-02.png" alt="surface parking" height="100px">
                 <p><small class="font-weight-bold">accessory parking</small></p>
               </div>
-              <div class="col col-6">
+              <div class="col-6 col-sm-3">
                 <img src="assets/Diagrams-03.png" alt="surface parking" height="100px">
                 <p><small class="font-weight-bold">standalone garage</small></p>
               </div>
-              <div class="col col-6">
+              <div class="col-6 col-sm-3">
                 <img src="assets/Diagrams-04.png" alt="surface parking" height="100px">
                 <p><small class="font-weight-bold">in-building parking</small></p>
               </div>
@@ -191,13 +191,7 @@
             <button id="check-residential" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Housing</button>
             <button id="check-office" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Office</button>
             <button id="check-parking" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Keep the parking</button>
-            <button type="button" class="btn btn-primary btn-sm mt-3 px-5" onclick="storyNext(this), submitMix()">Finish</button>
-          </div>
-
-          <div id="story-5" class="story col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3 d-none">
-            <h4 id="story-title" class="font-weight-bold">Explore your own futures!</h4>
-            <p id="story-text" class="mb-3"><small>Use the slider below to explore your own scenarios.</small></p>
-            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this)">Continue</button>
+            <button type="button" class="btn btn-primary btn-sm mt-3 px-5" onclick="storyNext(this), submitMix()">Finish and explore!</button>
           </div>
 
         </div>
