@@ -4,6 +4,12 @@ var settings = {
   'useMix2': 75,
   'layers_visible':['surface_full','surface_partial','garage_full','garage_partial'],
   'storyItem':0,
+  'mix':{
+    'parking':false,
+    'park':false,
+    'residential':false,
+    'office':false
+  }
 }
 
 var cmaps = {
@@ -186,9 +192,9 @@ map.once('style.load', function(e) {
   })
 });
 
-function modeToggle(id) {
+function modeToggle() {
   // this will contain a reference to the checkbox
-  if (document.getElementById(id).checked) {
+  if (!document.getElementById('modeToggle').checked) {
       useMixSlider.noUiSlider.set([100,100,100]);
       map.setPaintProperty('parking', 'fill-color', [
         'match',
@@ -317,7 +323,6 @@ for (var i = 0; i < connect.length; i++) {
 
 useMixSlider.noUiSlider.on('update', function (values, handle) {
 
-
   var handleList = $('#useMixSlider').find('.noUi-connect');
   var previousValue = 0;
 
@@ -340,6 +345,9 @@ useMixSlider.noUiSlider.on('update', function (values, handle) {
 });
 
 useMixSlider.noUiSlider.on('set', function (values, handle) {
+
+  $('#modeToggle').bootstrapToggle('off');
+
   updateColors(values)
   filterBuildings('parking-buildings', 'RandomInt', parseInt(values[2]));
 });
@@ -425,12 +433,104 @@ function interpolate (range, steps) {
   return interpolation
 }
 
+// this moves the story forward to the next div in the story
 function storyNext() {
   $("#story-" + settings.storyItem).addClass('d-none')
   settings.storyItem += 1
   $("#story-" + settings.storyItem).removeClass('d-none')
 }
 
+// this controls the item selection in the storyline
 function checkItem(element) {
+
+  // toggle button to show it's selected
   $(element).toggleClass('btn-outline-primary btn-primary')
+  console.log($(element).attr('id'))
+
+  // update settings to reflect the selected items
+  var selected = $(element).attr('id').split('-')[1]
+  if (!settings.mix[selected]) {
+    settings.mix[selected] = true
+  } else {
+    settings.mix[selected] = false
+  }
+
+  mixNumber = 0;
+
+  // determine the number of items selected to get percentage
+  for (var item in settings.mix) {
+    if (settings.mix[item]) {
+      mixNumber += 1
+    }
+  }
+
+  var handleList = [0,0,0]
+  var count = 0
+
+  // construct the list of handle locations for nouislider
+  for (var item in settings.mix) {
+    if (!count) {
+      if (!settings.mix[item]) {
+        handleList[count] = 0
+      } else {
+        handleList[count] = 100 / mixNumber
+      }
+    } else if (!settings.mix[item]) {
+      handleList[count] = (handleList[count - 1])
+    } else {
+      handleList[count] = (100 / mixNumber + handleList[count - 1])
+    }
+    count += 1
+  }
+
+  // update the noui slider with the handle list
+  useMixSlider.noUiSlider.set(handleList);
+}
+
+// store the preferred mix in the database
+function submitMix () {
+  console.log(submitted);
+}
+
+function zoomIn() {
+  map.flyTo({
+    'center':[-73.985775,40.706669],
+    'zoom': 12,
+    'pitch': 0,
+    'bearing': 0,
+    'speed':.5
+  })
+}
+
+function gardenCity() {
+  useMixSlider.noUiSlider.set([0,100,100]);
+  map.setLayoutProperty('parking-buildings', 'visibility', 'visible');
+  map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', 1);
+  $('#modeToggle').bootstrapToggle('off');
+  map.flyTo({
+    'center':[-73.985775,40.706669],
+    'zoom': 13,
+    'pitch': 60,
+    'bearing': 0,
+    'speed':.8
+  })
+}
+
+function housingHeaven() {
+  useMixSlider.noUiSlider.set([0,0,100]);
+  map.setLayoutProperty('parking-buildings', 'visibility', 'visible');
+  map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', 1);
+  map.flyTo({
+    'center':[-73.985775,40.706669],
+    'zoom': 13,
+    'pitch': 60,
+    'bearing': 0,
+    'speed':.8
+  })
+}
+
+function userSelection() {
+  useMixSlider.noUiSlider.set([100,100,100])
+  map.setLayoutProperty('parking-buildings', 'visibility', 'visible');
+  map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', 1);
 }
