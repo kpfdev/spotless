@@ -54,14 +54,16 @@ AWS.config.update({
     accessKeyId and secretAccessKey defaults can be used while using the downloadable version of DynamoDB.
     For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
   */
-  accessKeyId: "AKIAJYTQQK3EUCPGQ3QA",
-  secretAccessKey: "Bdpy0my9Fo3SvSG4atMWps4R/LKJPUcyRYeM0O2n"
+  accessKeyId: "AKIAR3FW7NHUQKMNDS66",
+  secretAccessKey: "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"
 });
 
 var dynamodb = new AWS.DynamoDB();
 var docClient = new AWS.DynamoDB.DocumentClient();
 var projectName = 'spotless'
 var userData = {}
+var d = new Date();
+
 
 ipLookUp()
 
@@ -547,6 +549,7 @@ function submitMix () {
     TableName: projectName,
     Item:{
       "userid": ID(),
+      "timestamp": d.getTime(),
       "parking": settings.mix.parking,
       "park": settings.mix.park,
       "residential": settings.mix.residential,
@@ -564,7 +567,7 @@ function submitMix () {
       "regionName":  userData.regionName,
       "status":  userData.status,
       "timezone":  userData.timezone,
-      "zip":  userData.zip,
+      "zip":  userData.zip
     }
   };
 
