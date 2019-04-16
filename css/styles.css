@@ -9,6 +9,14 @@ body {
   z-index: 0;
 }
 
+a {
+  cursor: pointer;
+}
+
+.hover {
+  cursor: pointer;
+}
+
 .c-1-color {
   background: #d3d3d3;
 }
@@ -155,6 +163,10 @@ body {
 
 #story-0 {
   visibility: hidden;
+}
+
+.about {
+  line-height: 16px;
 }
 
 .row-center {

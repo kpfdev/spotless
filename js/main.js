@@ -518,6 +518,15 @@ function interpolate (range, steps) {
 
 function skipStory() {
   $("#story-0").addClass('d-none')
+  modeToggle()
+  $('#modeToggle').bootstrapToggle('off');
+  map.flyTo({
+    'center':[-73.985775,40.706669],
+    'zoom': 13,
+    'pitch': 60,
+    'bearing': 0,
+    'speed':.8
+  })
 }
 
 // this moves the story forward to the next div in the story
@@ -575,6 +584,7 @@ function checkItem(element) {
 
 // store the preferred mix in the database
 function submitMix() {
+
   var params = {
     TableName: projectName,
     Key:{
@@ -592,6 +602,12 @@ function submitMix() {
 
   updateItem(params)
 
+}
+
+function explore() {
+  useMixSlider.noUiSlider.set([25,50,75]);
+  map.setLayoutProperty('parking-buildings', 'visibility', 'visible');
+  map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', 1);
 }
 
 function zoomIn() {

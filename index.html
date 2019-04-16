@@ -51,18 +51,16 @@
         <div id="menu-top" class="row fixed-top m-0 p-0">
           <div class="col-6 col-md-3 border-right px-3 py-2 d-none d-md-block">
             <div class="row justify-content-between">
-              <div class="col-6">
-                <h3 class='font-weight-bold mb-2 px-0'>Spotless</h3>
+              <div class="col-12">
+                <h3 class='hover font-weight-bold mb-2 px-0' data-toggle="collapse" href="#aboutCollapse" role="button">Spotless</h3>
               </div>
-              <div class="col-6 align-self-center">
-                <div class="row text-right">
-                  <div class="col-12 mb-2">
-                    <img class="mr-1" src="assets/logo-kpf.png" alt="surface parking" height="14px">
-                  </div>
-                  <div class="col-12">
-                    <img src="assets/Think-Tank-Logo-300x124.jpg" alt="surface parking" height="16px">
-                  </div>
-                </div>
+              <div class="col-12 mb-2 text-left align-self-end">
+                <a href="https://www.kpf.com/" target="_blank">
+                  <img class="mr-1" src="assets/logo-kpf.png" alt="surface parking" height="14px">
+                </a>
+                <a href="https://www.metropolismag.com/" target="_blank">
+                  <img src="assets/Think-Tank-Logo-300x124.jpg" alt="surface parking" height="16px">
+                </a>
               </div>
             </div>
           </div>
@@ -71,18 +69,38 @@
           <div class="col-6 col-md-3 border-right px-3 py-2 d-block d-md-none">
             <div class="row justify-content-between">
               <div class="col-6">
-                <h5 class='font-weight-bold mb-0 px-0'>Spotless</h5>
+                <h5 class='hover font-weight-bold mb-0 px-0' data-toggle="collapse" href="#aboutCollapse" role="button">Spotless</h5>
               </div>
               <div class="col-6 align-self-center">
                 <div class="row text-right">
                   <div class="col-12 mb-1">
-                    <img class="mr-1" src="assets/logo-kpf.png" alt="surface parking" height="14px">
+                    <a href="https://www.kpf.com/" target="_blank">
+                      <img class="mr-1" src="assets/logo-kpf.png" alt="surface parking" height="14px">
+                    </a>
                   </div>
                   <div class="col-12">
-                    <img src="assets/Think-Tank-Logo-300x124.jpg" alt="surface parking" height="16px">
+                    <a href="https://www.metropolismag.com/" target="_blank">
+                      <img src="assets/Think-Tank-Logo-300x124.jpg" alt="surface parking" height="16px">
+                    </a>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!--About-->
+          <div id="aboutCollapse" class="row row-center collapse position-fixed justify-content-center h-100 w-100 mx-0 px-3">
+            <div class="column-center align-self-center bg-white col-12 col-md-10 col-lg-8 col-xl-6 text-center rounded p-4">
+              <h4 class="font-weight-bold mb-4">Welcome to Spotless!</h4>
+              <p class="text-left"><small>Spotless is a project by KPF Urban Interface (KPFui) that quantifies the potential of off-street parking. Explore New York City's existing parking in "parking viewer" mode, and discover the impacts of redeveloping these parking lots in "build mode".</small></p>
+              <button type="button" class="btn btn-outline-primary btn-sm mt-2 mb-4 px-5" data-toggle="collapse" href="#aboutCollapse" role="button">Back to app</button>
+              </br>
+              <a href="https://www.kpf.com/" target="_blank">
+                <img class="mx-2" src="assets/logo-kpf.png" alt="surface parking" height="24px">
+              </a>
+              <a href="https://www.metropolismag.com/" target="_blank">
+                <img class="mx-2" src="assets/Think-Tank-Logo-300x124.jpg" alt="surface parking" height="24px">
+              </a>
             </div>
           </div>
 
@@ -152,17 +170,17 @@
 
         <!--Story-->
         <div id="story-0" class="row row-center position-fixed justify-content-center h-100 w-100 mx-0 px-3">
-          <div class="column-center align-self-center bg-white col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3">
-            <button type="button" class="btn btn-outline-primary btn-sm py-1 px-1 my-2" onclick="skipStory()">Skip</button>
-            <h4 class="font-weight-bold mb-4">Will autonomous vehicles mean less parking in NYC?</h4>
+          <div class="column-center align-self-center bg-white col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded px-3 py-4">
+            <h4 class="font-weight-bold mb-4">What would a spotless NYC look like?</h4>
             <p class="mb-4"><small>With autonomous vehicles (AVs) on the horizon, some people speculate New York City won't need as much parking in the future.</small></p>
             <button type="button" class="btn btn-primary mb-2 px-5" onclick="storyNext(this), zoomIn()">Continue</button>
             </br>
+            <button type="button" class="btn btn-outline-primary btn-sm py-1 px-2 mb-2" onclick="skipStory()">Skip</button>
           </div>
         </div>
 
         <div id="story-1" class="row row-center justify-content-center  h-100 w-100 mx-0 px-3 d-none">
-          <div class="column-center align-self-center bg-white col-12 col-sm-12 col-md-8 col-lg-8 col-xl-4 text-center rounded p-3 mb-3">
+          <div class="column-center align-self-center bg-white col-12 col-sm-12 col-md-8 col-lg-8 col-xl-5 text-center rounded  px-3 py-4 mb-3">
             <h4 class="font-weight-bold">We found 4 types of off-street parking in NYC.</h4>
             <div class="row pb-2">
               <div class="col-6 col-sm-3">
@@ -187,7 +205,7 @@
         </div>
 
         <div id="story-2" class="row fixed-bottom justify-content-center mx-3 d-none">
-          <div class="story-bottom col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3">
+          <div class="story-bottom col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded  px-3 py-4">
             <h4 class="font-weight-bold">What if we made every parking lot a park?</h4>
             <p class="mb-3"><small>There would be 8 thousand acres of new park in NYC, or almost 8 new Central Parks.</small></p>
             <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this), housingHeaven()">Continue</button>
@@ -195,7 +213,7 @@
         </div>
 
         <div id="story-3" class="row fixed-bottom justify-content-center mx-3 d-none">
-          <div class="story-bottom col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3">
+          <div class="story-bottom col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded  px-3 py-4">
             <h4 class="font-weight-bold">What if we build housing on every parking lot?</h4>
             <p class="mb-3"><small>There would be 3.1 million new apartments in NYC. That would almost double the housing stock!</small></p>
             <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this), userSelection()">Continue</button>
@@ -203,22 +221,34 @@
         </div>
 
         <div id="story-4" class="row fixed-bottom justify-content-center mx-3 d-none">
-          <div class="story-bottom col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3">
+          <div class="story-bottom col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded  px-3 py-4">
             <h4 class="font-weight-bold">What do you think NYC's parking lots should be used for?</h4>
             <!-- Default dropup button -->
-            <button id="check-park" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Park</button>
-            <button id="check-residential" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Housing</button>
-            <button id="check-office" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Office</button>
-            <button id="check-parking" class="btn btn-outline-primary btn-sm mb-1 w-100" onclick="checkItem(this)">Keep the parking</button>
+            <button id="check-park" class="btn btn-outline-primary text-left btn-sm mb-1 w-100" onclick="checkItem(this)">
+              <img class="px-3" src="assets/checkbox-01.png">
+              <span>Park</span>
+            </button>
+            <button id="check-residential" class="btn btn-outline-primary text-left btn-sm mb-1 w-100" onclick="checkItem(this)">
+              <img class="px-3" src="assets/checkbox-01.png">
+              <span>Housing</span>
+            </button>
+            <button id="check-office" class="btn btn-outline-primary text-left btn-sm mb-1 w-100" onclick="checkItem(this)">
+              <img class="px-3" src="assets/checkbox-01.png">
+              <span>Office</span>
+            </button>
+            <button id="check-parking" class="btn btn-outline-primary text-left btn-sm mb-1 w-100" onclick="checkItem(this)">
+              <img class="px-3" src="assets/checkbox-01.png">
+              <span>Keep the parking</span>
+            </button>
             <button type="button" class="btn btn-primary btn-sm mt-3 px-5" onclick="storyNext(this), submitMix()">Submit</button>
           </div>
         </div>
 
-        <div id="story-5" class="row row-center position-fixed justify-content-center h-100 w-100 mx-0 px-3 d-none">
+        <div id="story-5" class="row row-center position-fixed justify-content-center h-100 w-100 mx-0 px-3 py-4 d-none">
           <div class="column-center align-self-center bg-white col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 text-center rounded p-3">
             <h4 class="font-weight-bold">Create your own scenarios!</h4>
             <p class="mb-3"><small>Use the slider below to create your own unique future scenarios. Click on indivual parking lots to learn more about them.</small></p>
-            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this)">Explore</button>
+            <button type="button" class="btn btn-primary btn-sm px-5" onclick="storyNext(this), explore()">Explore</button>
           </div>
         </div>
         <!--Story-->
