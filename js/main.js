@@ -63,20 +63,50 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 var projectName = 'spotless'
 var userData = {}
 var d = new Date();
+var userID = ID()
 
+ipLookUp(putUserData)
 
-ipLookUp()
+// store user data upon visiting the site
+function putUserData() {
+  var params = {
+    TableName: projectName,
+    Item:{
+      "userid": userID,
+      "timestamp": d.getTime(),
+      "as": userData.as,
+      "city": userData.city,
+      "country": userData.country,
+      "countryCode": userData.countryCode,
+      "isp":  userData.isp,
+      "lat":  userData.lat,
+      "lon":  userData.lon,
+      "org":  userData.org,
+      "query":  userData.query,
+      "region":  userData.region,
+      "regionName":  userData.regionName,
+      "status":  userData.status,
+      "timezone":  userData.timezone,
+      "zip":  userData.zip
+    }
+  };
+
+  createItem(params)
+
+}
 
 // lookup users IP address
-function ipLookUp() {
+function ipLookUp(callback) {
   $.ajax('http://ip-api.com/json')
   .then(
     function success(response) {
       // console.log('User\'s Location Data is ', response);
       userData = response
+      callback()
     },
     function fail(data, status) {
       // console.log('Request failed.  Returned status of', status);
+      callback()
     }
   );
 }
@@ -544,51 +574,23 @@ function checkItem(element) {
 }
 
 // store the preferred mix in the database
-function submitMix () {
+function submitMix() {
   var params = {
     TableName: projectName,
-    Item:{
-      "userid": ID(),
-      "timestamp": d.getTime(),
-      "parking": settings.mix.parking,
-      "park": settings.mix.park,
-      "residential": settings.mix.residential,
-      "office": settings.mix.office,
-      "as": userData.as,
-      "city": userData.city,
-      "country": userData.country,
-      "countryCode": userData.countryCode,
-      "isp":  userData.isp,
-      "lat":  userData.lat,
-      "lon":  userData.lon,
-      "org":  userData.org,
-      "query":  userData.query,
-      "region":  userData.region,
-      "regionName":  userData.regionName,
-      "status":  userData.status,
-      "timezone":  userData.timezone,
-      "zip":  userData.zip
-    }
-  };
-
-  // var paramsLeader = {
-  //   TableName: projectName,
-  //   ProjectionExpression: "username, rank_exp",
-  // };
-
-  var paramsLeader = {
-    TableName: projectName,
-    KeyConditionExpression: 'userid = :id',
-    ProjectionExpression: "username, rank_exp",
-    Limit: 3,
-    ExpressionAttributeValues: {
-      ':id': 'dog'
+    Key:{
+        "userid": userID
     },
-    ScanIndexForward: false
+    UpdateExpression: "set parking=:parking, park=:park, residential=:residential, office=:office",
+    ExpressionAttributeValues:{
+        ":parking": settings.mix.parking,
+        ":park": settings.mix.park,
+        ":residential": settings.mix.residential,
+        ":office": settings.mix.office
+    },
+    ReturnValues:"UPDATED_NEW"
   };
 
-  createItem(params)
-  // readItem(paramsLeader)
+  updateItem(params)
 
 }
 
@@ -635,7 +637,7 @@ function userSelection() {
   map.setPaintProperty('3d-buildings', 'fill-extrusion-opacity', 1);
 }
 
-var ID = function () {
+function ID() {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
 
@@ -675,6 +677,18 @@ function createTable(projectName) {
 function createItem(params) {
 
     docClient.put(params, function(err, data) {
+        if (err) {
+            console.log("Unable to add item: " + "\n" + JSON.stringify(err, undefined, 2));
+        } else {
+            console.log("PutItem succeeded: " + "\n" + JSON.stringify(data, undefined, 2));
+        }
+    });
+}
+
+// create a submit entry in the database
+function updateItem(params) {
+
+    docClient.update(params, function(err, data) {
         if (err) {
             console.log("Unable to add item: " + "\n" + JSON.stringify(err, undefined, 2));
         } else {
