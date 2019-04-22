@@ -74,20 +74,7 @@ function putUserData() {
     Item:{
       "userid": userID,
       "timestamp": d.getTime(),
-      "as": userData.as,
-      "city": userData.city,
-      "country": userData.country,
-      "countryCode": userData.countryCode,
-      "isp":  userData.isp,
-      "lat":  userData.lat,
-      "lon":  userData.lon,
-      "org":  userData.org,
-      "query":  userData.query,
-      "region":  userData.region,
-      "regionName":  userData.regionName,
-      "status":  userData.status,
-      "timezone":  userData.timezone,
-      "zip":  userData.zip
+      "ip": userData.ip
     }
   };
 
@@ -97,7 +84,7 @@ function putUserData() {
 
 // lookup users IP address
 function ipLookUp(callback) {
-  $.ajax('http://ip-api.com/json')
+  $.ajax('https://api.ipify.org?format=json')
   .then(
     function success(response) {
       console.log('User\'s Location Data is ', response);
